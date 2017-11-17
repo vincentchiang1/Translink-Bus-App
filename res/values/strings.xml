@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Buses \'R Us</string>
+    <string name="about">About</string>
+    <string name="refresh">Refresh</string>
+    <string name="ok">OK</string>
+    <string name="you">Your nearest stop:</string>
+    <string name="bot">Bot</string>
+    <string name="unknown">Unknown</string>
+    <string name="api_json">Could not obtain arrivals information! (Translink Data Format Problem)</string>
+    <string name="api_json_missing">Could not obtain arrivals information! (Translink Response Missing Data)</string>
+    <string name="api_network">Could not obtain arrivals information! (Network Problem)</string>
+    <string name="arrivals_download_title">Connecting to Translink…</string>
+    <string name="arrivals_download_msg">Downloading bus arrivals…</string>
+    <string name="out_of_range">Stops all out of range</string>
+    <string name="arrivals_activity_subtitle">Arrivals</string>
+    <string name="translink_download_title">Connecting to Translink…</string>
+    <string name="bus_locations_download_msg">Downloading bus locations…</string>
+    <string name="no_buses">No buses scheduled</string>
+    <string name="translink_open_data">Powered by Translink Open API</string>
+    <string name="translink_web">https://developer.translink.ca/ServicesRtti/ApiReference</string>
+    <string name="copyright">© 2016</string>
+    <string name="cs210_web"></string>
+    <string name="stop_name_key">stop</string>
+    <string name="lat_key">lat</string>
+    <string name="lon_key">lon</string>
+    <string name="zoom_key">zoom</string>
+    <string name="locn_key">locn</string>
+</resources>

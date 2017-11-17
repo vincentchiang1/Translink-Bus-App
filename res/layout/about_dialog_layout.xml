@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+
+    <TextView android:layout_marginLeft="25dp" android:layout_height="wrap_content" android:layout_width="fill_parent" android:autoLink="web" android:textSize="@dimen/text_size"
+              android:text="@string/translink_open_data"/>
+    <TextView android:layout_marginLeft="25dp" android:layout_height="wrap_content" android:layout_width="fill_parent" android:autoLink="web" android:textSize="@dimen/text_size"
+              android:text="@string/translink_web"/>
+    <TextView android:layout_marginLeft="25dp" android:layout_height="wrap_content" android:layout_width="fill_parent" android:autoLink="web" android:textSize="@dimen/text_size"
+              android:text="Some of the data used in this product or service is provided by permission of TransLink. TransLink assumes no responsibility for the accuracy or currency of the Data used in this product or service."/>
+    <TextView android:layout_marginLeft="25dp" android:layout_height="wrap_content" android:layout_width="fill_parent" android:autoLink="web" android:textSize="@dimen/text_size"
+              android:text="@string/copyright"/>
+    <TextView android:layout_marginLeft="25dp" android:layout_height="wrap_content" android:layout_width="fill_parent" android:autoLink="web" android:textSize="@dimen/text_size"
+              android:text="@string/cs210_web"/>
+
+</LinearLayout>
