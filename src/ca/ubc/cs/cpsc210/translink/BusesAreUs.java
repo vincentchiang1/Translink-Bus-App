@@ -104,6 +104,8 @@ public class BusesAreUs extends Activity implements LocationListener, StopSelect
     @Override
     public void onLocationChanged(Stop nearest, LatLon locn) {
         // TODO: Complete the implementation of this method (Task 6)
+
+
     }
 
     @Override
