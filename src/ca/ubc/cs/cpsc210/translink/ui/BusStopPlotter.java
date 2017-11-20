@@ -10,6 +10,7 @@ import ca.ubc.cs.cpsc210.translink.R;
 import ca.ubc.cs.cpsc210.translink.model.Stop;
 import ca.ubc.cs.cpsc210.translink.model.StopManager;
 import ca.ubc.cs.cpsc210.translink.util.Geometry;
+import ca.ubc.cs.cpsc210.translink.util.LatLon;
 import org.osmdroid.bonuspack.clustering.RadiusMarkerClusterer;
 import org.osmdroid.bonuspack.overlays.Marker;
 import org.osmdroid.util.GeoPoint;
@@ -55,22 +56,37 @@ public class BusStopPlotter extends MapViewOverlay {
 
 
         updateVisibleArea();
+        newStopClusterer();
         for (Stop next: StopManager.getInstance()){
+            clearMarker(next); // newx
             if(Geometry.rectangleContainsPoint(northWest, southEast, next.getLocn())){
                Marker marker = new Marker(mapView);
                 marker.setPosition(new GeoPoint(next.getLocn().getLatitude(), next.getLocn().getLongitude()));
                 getMarker(next);
                 marker.setRelatedObject(next);
+                marker.getRelatedObject();  //*
                 marker.setIcon(stopIconDrawable);
                 stopClusterer.add(marker);
                 marker.setInfoWindow(stopInfoWindow);
                 marker.setTitle(Integer.toString(next.getNumber()) + " " + next.getName());
 
+
+
+                setMarker(next, marker); //new
+
             }
 
         }
+        if(currentLocation != null) {
 
 
+            Stop nearest = StopManager.getInstance().findNearestTo(new LatLon(currentLocation.getLatitude(), currentLocation.getLongitude()));
+
+            updateMarkerOfNearest(nearest);
+
+
+
+        }
     }
 
     /**
@@ -99,10 +115,46 @@ public class BusStopPlotter extends MapViewOverlay {
         Drawable stopIconDrawable = activity.getResources().getDrawable(R.drawable.stop_icon);
         Drawable closestStopIconDrawable = activity.getResources().getDrawable(R.drawable.closest_stop_icon);
 
-        // TODO: complete the implementation of this method (Task 6)
+        updateVisibleArea();// ******************************************in task 6*
+
+        if (nearest != null) {
+
+            if (getMarker(nearest)!= null) {
+
+                nearestStnMarker = getMarker(nearest);
+                nearestStnMarker.setIcon(closestStopIconDrawable);
+            }
+
+            else {
+                nearestStnMarker = new Marker(mapView);
+                Marker marker = new Marker(mapView);
+                marker.setPosition(new GeoPoint(nearest.getLocn().getLatitude(), nearest.getLocn().getLongitude()));
+                getMarker(nearest);
+                marker.setRelatedObject(nearest);
+                marker.getRelatedObject();  //*
+                marker.setIcon(stopIconDrawable);
+                stopClusterer.add(marker);
+                marker.setInfoWindow(stopInfoWindow);
+                marker.setTitle(Integer.toString(nearest.getNumber()) + " " + nearest.getName());
 
 
+
+                setMarker(nearest, marker); //new
+            }
+
+        }
     }
+
+//
+
+
+
+
+
+
+
+
+
 
     /**
      * Manage mapping from stops to markers using a map from stops to markers.
