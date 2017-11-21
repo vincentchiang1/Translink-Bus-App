@@ -132,7 +132,7 @@ public class Route implements Iterable<Stop> {
      * @return      the name of the route
      */
     public String getName() {
-        return name;
+        return toString();
     }
 
     @Override

@@ -278,7 +278,7 @@ public class MapDisplayFragment extends Fragment implements MapEventsReceiver, I
 
 
             locationListener.onLocationChanged(stop, new LatLon(location.getLatitude(), location.getLongitude())); //mew
-       
+
 
 
     }
