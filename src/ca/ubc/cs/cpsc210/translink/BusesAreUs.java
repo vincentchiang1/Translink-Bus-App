@@ -160,10 +160,18 @@ public class BusesAreUs extends Activity implements LocationListener, StopSelect
     public void onStopSelected(Stop stop) {
         try {
             StopManager.getInstance().setSelected(stop);
+            DownloadBusLocationDataTask locations = new DownloadBusLocationDataTask();
+            locations.execute(stop);
         } catch (StopException e) {
             // stop is not in StopManager
 
         }
+      //finally {
+        //    DownloadBusLocationDataTask locations =  new DownloadBusLocationDataTask();
+            //locations.onPreExecute();
+            //locations.onPostExecute(locations.doInBackground(stop));
+        //}
+     //   locations.doInBackground(stop);
     }
 
     /**
