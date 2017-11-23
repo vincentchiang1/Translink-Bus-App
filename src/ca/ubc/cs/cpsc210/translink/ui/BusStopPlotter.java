@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import ca.ubc.cs.cpsc210.translink.BusesAreUs;
 import ca.ubc.cs.cpsc210.translink.R;
+import ca.ubc.cs.cpsc210.translink.model.Route;
 import ca.ubc.cs.cpsc210.translink.model.Stop;
 import ca.ubc.cs.cpsc210.translink.model.StopManager;
 import ca.ubc.cs.cpsc210.translink.util.Geometry;
@@ -55,12 +56,13 @@ public class BusStopPlotter extends MapViewOverlay {
 
 
 
+
         updateVisibleArea();
         newStopClusterer();
-        for (Stop next: StopManager.getInstance()){
-            clearMarker(next); // newx
-            if(Geometry.rectangleContainsPoint(northWest, southEast, next.getLocn())){
-               Marker marker = new Marker(mapView);
+        for (Stop next: StopManager.getInstance()) {
+            //clearMarker(next); // newx
+            if (Geometry.rectangleContainsPoint(northWest, southEast, next.getLocn())) {
+                Marker marker = new Marker(mapView);
                 marker.setPosition(new GeoPoint(next.getLocn().getLatitude(), next.getLocn().getLongitude()));
                 getMarker(next);
                 marker.setRelatedObject(next);
@@ -68,14 +70,19 @@ public class BusStopPlotter extends MapViewOverlay {
                 marker.setIcon(stopIconDrawable);
                 stopClusterer.add(marker);
                 marker.setInfoWindow(stopInfoWindow);
-                marker.setTitle(Integer.toString(next.getNumber()) + " " + next.getName());
+                String prev = Integer.toString(next.getNumber()) + " " + next.getName();
+                for (Route nextRoute : next.getRoutes()) {
+
+                    marker.setTitle(prev+"\n"
+                            + nextRoute.getNumber());
+                    prev = marker.getTitle();
 
 
+                    setMarker(next, marker); //new
 
-                setMarker(next, marker); //new
+                }
 
             }
-
         }
         if(currentLocation != null) {
 
