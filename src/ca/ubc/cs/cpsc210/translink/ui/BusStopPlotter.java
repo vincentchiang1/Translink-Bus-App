@@ -60,13 +60,14 @@ public class BusStopPlotter extends MapViewOverlay {
         updateVisibleArea();
         newStopClusterer();
         for (Stop next: StopManager.getInstance()) {
-            //clearMarker(next); // newx
+
             if (Geometry.rectangleContainsPoint(northWest, southEast, next.getLocn())) {
                 Marker marker = new Marker(mapView);
                 marker.setPosition(new GeoPoint(next.getLocn().getLatitude(), next.getLocn().getLongitude()));
-                getMarker(next);
+
+                setMarker(next, marker);
                 marker.setRelatedObject(next);
-                marker.getRelatedObject();  //*
+
                 marker.setIcon(stopIconDrawable);
                 stopClusterer.add(marker);
                 marker.setInfoWindow(stopInfoWindow);
@@ -78,7 +79,7 @@ public class BusStopPlotter extends MapViewOverlay {
                     prev = marker.getTitle();
 
 
-                    setMarker(next, marker); //new
+
 
                 }
 
@@ -122,7 +123,7 @@ public class BusStopPlotter extends MapViewOverlay {
         Drawable stopIconDrawable = activity.getResources().getDrawable(R.drawable.stop_icon);
         Drawable closestStopIconDrawable = activity.getResources().getDrawable(R.drawable.closest_stop_icon);
 
-        updateVisibleArea();// ******************************************in task 6*
+        updateVisibleArea();
 
         if (nearest != null) {
 
@@ -134,19 +135,31 @@ public class BusStopPlotter extends MapViewOverlay {
 
             else {
                 nearestStnMarker = new Marker(mapView);
-                Marker marker = new Marker(mapView);
-                marker.setPosition(new GeoPoint(nearest.getLocn().getLatitude(), nearest.getLocn().getLongitude()));
-                getMarker(nearest);
-                marker.setRelatedObject(nearest);
-                marker.getRelatedObject();  //*
-                marker.setIcon(stopIconDrawable);
-                stopClusterer.add(marker);
-                marker.setInfoWindow(stopInfoWindow);
-                marker.setTitle(Integer.toString(nearest.getNumber()) + " " + nearest.getName());
+
+                nearestStnMarker.setPosition(new GeoPoint(nearest.getLocn().getLatitude(), nearest.getLocn().getLongitude()));
+
+                nearestStnMarker.setRelatedObject(nearest);
+
+                nearestStnMarker.setIcon(stopIconDrawable);
+                stopClusterer.add(nearestStnMarker);
+                nearestStnMarker.setInfoWindow(stopInfoWindow);
+
+
+                String prev = Integer.toString(nearest.getNumber()) + " " + nearest.getName();
+                for (Route nextRoute : nearest.getRoutes()) {
+
+                    nearestStnMarker.setTitle(prev+"\n"
+                            + nextRoute.getNumber());
+                    prev = nearestStnMarker.getTitle();
 
 
 
-                setMarker(nearest, marker); //new
+
+                }
+
+
+
+                setMarker(nearest, nearestStnMarker);
             }
 
         }

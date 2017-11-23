@@ -58,7 +58,7 @@ public class BusRouteDrawer extends MapViewOverlay {
                             line.setColor(busRouteLegendOverlay.getColor(next.getNumber()));
                             line.setWidth(getLineWidth(zoomLevel));
                             listPoints = new ArrayList<>();
-                            //if (Geometry.rectangleContainsPoint(northWest, southEast, nextPattern.getPath().get(i)) && Geometry.rectangleContainsPoint(northWest, southEast, nextPattern.getPath().get(i + 1))) {
+
 
                             if (Geometry.rectangleIntersectsLine(northWest, southEast, nextPattern.getPath().get(i), nextPattern.getPath().get(i+1))){
 
@@ -76,14 +76,8 @@ public class BusRouteDrawer extends MapViewOverlay {
 
                 }
 
-//            if (next.getStops().contains(StopManager.getInstance().getSelected())){
-//                busRouteLegendOverlay.add(next.getName());
-//                busRouteOverlays.add(new Polyline(context));
-//                busRouteLegendOverlay.getColor(next.getNumber());
-//            }
             }
 
-            //createBusRouteLegendOverlay();
 
 
         }

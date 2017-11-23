@@ -39,7 +39,7 @@ public class BusLocationPlotter extends MapViewOverlay {
 
         busLocationsOverlay.removeAllItems();
         if (StopManager.getInstance().getSelected() != null) {
-            //if (StopManager.getInstance().getSelected().getBuses().size() > 0) {
+
                 for (Bus next : StopManager.getInstance().getSelected().getBuses()) {
                     OverlayItem bus = new OverlayItem("x", "y", new GeoPoint(next.getLatLon().getLatitude(), next.getLatLon().getLongitude()));
                     busLocationsOverlay.addItem(bus);
@@ -50,7 +50,7 @@ public class BusLocationPlotter extends MapViewOverlay {
 
             }
         }
-    //}
+
 
     /**
      * Create the overlay for bus markers.
