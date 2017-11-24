@@ -22,6 +22,8 @@ public class HttpBusLocationDataProvider extends AbstractHttpDataProvider {
      * Produces URL used to query Translink web service for locations of buses serving
      * the stop specified in call to constructor.
      *
+     *@throws MalformedURLException when URL is malformed
+     *
      * @returns URL to query Translink web service for arrival data
      */
     protected URL getURL() throws MalformedURLException {

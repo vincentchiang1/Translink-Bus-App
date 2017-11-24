@@ -22,18 +22,25 @@ import java.util.Map;
 
 // A plotter for bus stop locations
 public class BusStopPlotter extends MapViewOverlay {
-    /** clusterer */
+    /**
+     * clusterer
+     */
     private RadiusMarkerClusterer stopClusterer;
-    /** maps each stop to corresponding marker on map */
+    /**
+     * maps each stop to corresponding marker on map
+     */
     private Map<Stop, Marker> stopMarkerMap = new HashMap<>();
-    /** marker for stop that is nearest to user (null if no such stop) */
+    /**
+     * marker for stop that is nearest to user (null if no such stop)
+     */
     private Marker nearestStnMarker;
     private Activity activity;
     private StopInfoWindow stopInfoWindow;
 
     /**
      * Constructor
-     * @param activity  the application context
+     *
+     * @param activity the application context
      * @param mapView  the map view on which buses are to be plotted
      */
     public BusStopPlotter(Activity activity, MapView mapView) {
@@ -50,16 +57,18 @@ public class BusStopPlotter extends MapViewOverlay {
 
     /**
      * Mark all visible stops in stop manager onto map.
+     *
+     * @param currentLocation the current location set by the user
      */
     public void markStops(Location currentLocation) {
         Drawable stopIconDrawable = activity.getResources().getDrawable(R.drawable.stop_icon);
 
 
-
-
         updateVisibleArea();
         newStopClusterer();
-        for (Stop next: StopManager.getInstance()) {
+        
+
+        for (Stop next : StopManager.getInstance()) {
 
             if (Geometry.rectangleContainsPoint(northWest, southEast, next.getLocn())) {
                 Marker marker = new Marker(mapView);
@@ -74,24 +83,21 @@ public class BusStopPlotter extends MapViewOverlay {
                 String prev = Integer.toString(next.getNumber()) + " " + next.getName();
                 for (Route nextRoute : next.getRoutes()) {
 
-                    marker.setTitle(prev+"\n"
+                    marker.setTitle(prev + "\n"
                             + nextRoute.getNumber());
                     prev = marker.getTitle();
-
-
 
 
                 }
 
             }
         }
-        if(currentLocation != null) {
+        if (currentLocation != null) {
 
 
             Stop nearest = StopManager.getInstance().findNearestTo(new LatLon(currentLocation.getLatitude(), currentLocation.getLongitude()));
 
             updateMarkerOfNearest(nearest);
-
 
 
         }
@@ -103,7 +109,7 @@ public class BusStopPlotter extends MapViewOverlay {
     private void newStopClusterer() {
         stopClusterer = new RadiusMarkerClusterer(activity);
         stopClusterer.getTextPaint().setTextSize(20.0F * BusesAreUs.dpiFactor());
-        int zoom =  mapView == null ? 16 : mapView.getZoomLevel();
+        int zoom = mapView == null ? 16 : mapView.getZoomLevel();
         if (zoom == 0) zoom = MapDisplayFragment.DEFAULT_ZOOM;
         int radius = 1000 / zoom;
 
@@ -117,7 +123,7 @@ public class BusStopPlotter extends MapViewOverlay {
      * Update marker of nearest stop (called when user's location has changed).  If nearest is null,
      * no stop is marked as the nearest stop.
      *
-     * @param nearest   stop nearest to user's location (null if no stop within StopManager.RADIUS metres)
+     * @param nearest stop nearest to user's location (null if no stop within StopManager.RADIUS metres)
      */
     public void updateMarkerOfNearest(Stop nearest) {
         Drawable stopIconDrawable = activity.getResources().getDrawable(R.drawable.stop_icon);
@@ -127,13 +133,11 @@ public class BusStopPlotter extends MapViewOverlay {
 
         if (nearest != null) {
 
-            if (getMarker(nearest)!= null) {
+            if (getMarker(nearest) != null) {
 
                 nearestStnMarker = getMarker(nearest);
                 nearestStnMarker.setIcon(closestStopIconDrawable);
-            }
-
-            else {
+            } else {
                 nearestStnMarker = new Marker(mapView);
 
                 nearestStnMarker.setPosition(new GeoPoint(nearest.getLocn().getLatitude(), nearest.getLocn().getLongitude()));
@@ -148,15 +152,12 @@ public class BusStopPlotter extends MapViewOverlay {
                 String prev = Integer.toString(nearest.getNumber()) + " " + nearest.getName();
                 for (Route nextRoute : nearest.getRoutes()) {
 
-                    nearestStnMarker.setTitle(prev+"\n"
+                    nearestStnMarker.setTitle(prev + "\n"
                             + nextRoute.getNumber());
                     prev = nearestStnMarker.getTitle();
 
 
-
-
                 }
-
 
 
                 setMarker(nearest, nearestStnMarker);
@@ -168,21 +169,24 @@ public class BusStopPlotter extends MapViewOverlay {
 //
 
 
-
-
-
-
-
-
-
-
     /**
      * Manage mapping from stops to markers using a map from stops to markers.
      * The mapping in the other direction is done using the Marker.setRelatedObject() and
      * Marker.getRelatedObject() methods.
      */
-    private Marker getMarker(Stop stop) { return stopMarkerMap.get(stop); }
-    private void setMarker(Stop stop, Marker marker) { stopMarkerMap.put(stop, marker); }
-    private void clearMarker(Stop stop) { stopMarkerMap.remove(stop); }
-    private void clearMarkers() { stopMarkerMap.clear(); }
+    private Marker getMarker(Stop stop) {
+        return stopMarkerMap.get(stop);
+    }
+
+    private void setMarker(Stop stop, Marker marker) {
+        stopMarkerMap.put(stop, marker);
+    }
+
+    private void clearMarker(Stop stop) {
+        stopMarkerMap.remove(stop);
+    }
+
+    private void clearMarkers() {
+        stopMarkerMap.clear();
+    }
 }

@@ -101,12 +101,13 @@ public class BusesAreUs extends Activity implements LocationListener, StopSelect
      * Update nearest stop text view when user location changes
      *
      * @param nearest stop that is nearest to user (null if no stop within StopManager.RADIUS metres)
+     * @param locn latitude and longitude of user location
      */
     @Override
     public void onLocationChanged(Stop nearest, LatLon locn) {
 
 
-        myNearestStop = nearest; // set nearest stop
+        myNearestStop = nearest;
 
         nearestStopLabel = (TextView) findViewById(R.id.nearestStopLabel);
 
@@ -115,7 +116,6 @@ public class BusesAreUs extends Activity implements LocationListener, StopSelect
 
         } else {
             nearestStopLabel.setText(R.string.out_of_range);
-
 
 
         }
@@ -171,7 +171,8 @@ public class BusesAreUs extends Activity implements LocationListener, StopSelect
 
     /**
      * Return a scaling factor for resources that should stay "about the same size" on the screen
-     * @return      a factor to multiply fonts and widths of things to keep them visible on screen of varying resolution
+     *
+     * @return a factor to multiply fonts and widths of things to keep them visible on screen of varying resolution
      */
     public static float dpiFactor() {
         float x = activity.getResources().getDisplayMetrics().density;
@@ -198,7 +199,7 @@ public class BusesAreUs extends Activity implements LocationListener, StopSelect
     /**
      * Start activity to show arrivals to user
      *
-     * @param stop  Stop for which arrivals are to be shown
+     * @param stop Stop for which arrivals are to be shown
      */
     private void startArrivalActivity(Stop stop) {
         Intent i = new Intent(BusesAreUs.this, ArrivalsActivity.class);

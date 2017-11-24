@@ -15,13 +15,16 @@ import java.util.ArrayList;
 
 // A plotter for bus locations
 public class BusLocationPlotter extends MapViewOverlay {
-    /** overlay used to display bus locations */
+    /**
+     * overlay used to display bus locations
+     */
     private ItemizedIconOverlay<OverlayItem> busLocationsOverlay;
 
     /**
      * Constructor
-     * @param context  the application context
-     * @param mapView  the map view
+     *
+     * @param context the application context
+     * @param mapView the map view
      */
     public BusLocationPlotter(Context context, MapView mapView) {
         super(context, mapView);
@@ -40,20 +43,22 @@ public class BusLocationPlotter extends MapViewOverlay {
         busLocationsOverlay.removeAllItems();
         if (StopManager.getInstance().getSelected() != null) {
 
-                for (Bus next : StopManager.getInstance().getSelected().getBuses()) {
-                    OverlayItem bus = new OverlayItem("x", "y", new GeoPoint(next.getLatLon().getLatitude(), next.getLatLon().getLongitude()));
-                    busLocationsOverlay.addItem(bus);
-
-
-                }
+            for (Bus next : StopManager.getInstance().getSelected().getBuses()) {
+                OverlayItem bus = new OverlayItem("x", "y", new GeoPoint(next.getLatLon().getLatitude(), next.getLatLon().getLongitude()));
+                busLocationsOverlay.addItem(bus);
 
 
             }
+
+
         }
+    }
 
 
     /**
      * Create the overlay for bus markers.
+     *
+     * @return the overlay items for the bus markers
      */
     private ItemizedIconOverlay<OverlayItem> createBusLocnOverlay() {
         ResourceProxy rp = new DefaultResourceProxyImpl(context);

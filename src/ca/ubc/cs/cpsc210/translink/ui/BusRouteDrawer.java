@@ -20,15 +20,20 @@ import java.util.List;
 
 // A bus route drawer
 public class BusRouteDrawer extends MapViewOverlay {
-    /** overlay used to display bus route legend text on a layer above the map */
+    /**
+     * overlay used to display bus route legend text on a layer above the map
+     */
     private BusRouteLegendOverlay busRouteLegendOverlay;
-    /** overlays used to plot bus routes */
+    /**
+     * overlays used to plot bus routes
+     */
     private List<Polyline> busRouteOverlays;
 
     /**
      * Constructor
-     * @param context   the application context
-     * @param mapView   the map view
+     *
+     * @param context the application context
+     * @param mapView the map view
      */
     public BusRouteDrawer(Context context, MapView mapView) {
         super(context, mapView);
@@ -38,6 +43,8 @@ public class BusRouteDrawer extends MapViewOverlay {
 
     /**
      * Plot each visible segment of each route pattern of each route going through the selected stop.
+     *
+     * @param zoomLevel the zoom level of the map
      */
     public void plotRoutes(int zoomLevel) {
 
@@ -60,7 +67,7 @@ public class BusRouteDrawer extends MapViewOverlay {
                             listPoints = new ArrayList<>();
 
 
-                            if (Geometry.rectangleIntersectsLine(northWest, southEast, nextPattern.getPath().get(i), nextPattern.getPath().get(i+1))){
+                            if (Geometry.rectangleIntersectsLine(northWest, southEast, nextPattern.getPath().get(i), nextPattern.getPath().get(i + 1))) {
 
                                 GeoPoint point1 = new GeoPoint(nextPattern.getPath().get(i).getLatitude(), nextPattern.getPath().get(i).getLongitude());
                                 GeoPoint point2 = new GeoPoint(nextPattern.getPath().get(i + 1).getLatitude(), nextPattern.getPath().get(i + 1).getLongitude());
@@ -79,9 +86,9 @@ public class BusRouteDrawer extends MapViewOverlay {
             }
 
 
-
         }
     }
+
     public List<Polyline> getBusRouteOverlays() {
         return Collections.unmodifiableList(busRouteOverlays);
     }
@@ -101,13 +108,14 @@ public class BusRouteDrawer extends MapViewOverlay {
 
     /**
      * Get width of line used to plot bus route based on zoom level
-     * @param zoomLevel   the zoom level of the map
-     * @return            width of line used to plot bus route
+     *
+     * @param zoomLevel the zoom level of the map
+     * @return width of line used to plot bus route
      */
     private float getLineWidth(int zoomLevel) {
-        if(zoomLevel > 14)
+        if (zoomLevel > 14)
             return 7.0f * BusesAreUs.dpiFactor();
-        else if(zoomLevel > 10)
+        else if (zoomLevel > 10)
             return 5.0f * BusesAreUs.dpiFactor();
         else
             return 2.0f * BusesAreUs.dpiFactor();
